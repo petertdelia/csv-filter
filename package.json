@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/petertdelia/csv-filter.git"
+    "url": "git+https://github.com/petertdelia/duplicate-filter.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/petertdelia/csv-filter/issues"
+    "url": "https://github.com/petertdelia/duplicate-filter/issues"
   },
-  "homepage": "https://github.com/petertdelia/csv-filter#readme",
+  "homepage": "https://github.com/petertdelia/duplicate-filter#readme",
   "dependencies": {
     "jest": "^27.0.6"
   }
