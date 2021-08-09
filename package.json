@@ -1,0 +1,26 @@
+{
+  "name": "csv-filter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "csvfilter.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petertdelia/csv-filter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/petertdelia/csv-filter/issues"
+  },
+  "homepage": "https://github.com/petertdelia/csv-filter#readme",
+  "dependencies": {
+    "jest": "^27.0.6"
+  }
+}
