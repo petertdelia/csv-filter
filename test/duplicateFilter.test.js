@@ -3,33 +3,33 @@ const FILE_PATH = "./test/all-values-test.csv";
 let detectionStrategy, result;
 
 describe("A CSV file with all values present", () => {
-  test("removes by email address", () => {
+  test("removes duplicates by email address", () => {
     detectionStrategy = "email";
     result = 
     expect(duplicateFilter(FILE_PATH, detectionStrategy)).toBe("4");
   });
 
-  xtest("filters by phone number", () => {
+  xtest("removes duplicates by phone number", () => {
     detectionStrategy = "phone";
     expect(duplicateFilter(FILE_PATH, detectionStrategy)).toBe("4");
   });
 
-  xtest("filters by email address and phone number", () => {
+  xtest("removes duplicates by email address and phone number", () => {
     detectionStrategy = "email_or_phone";
     expect(duplicateFilter(FILE_PATH, detectionStrategy)).toBe("4");
   });
 })
 
 describe("A CSV file with some values missing", () => {
-  xtest("filters by email address", () => {
+  xtest("removes duplicates by email address", () => {
     expect(duplicateFilter(FILE_PATH, detectionStrategy)).toBe("4");
   });
 
-  xtest("filters by phone number", () => {
+  xtest("removes duplicates by phone number", () => {
     expect(duplicateFilter()).toBe("4");
   });
 
-  xtest("filters by email address and phone number", () => {
+  xtest("removes duplicates by email address and phone number", () => {
     expect(duplicateFilter()).toBe("4");
   });
 });
