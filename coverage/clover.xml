@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1628607442909" clover="3.2.0">
+  <project timestamp="1628607442909" name="All files">
+    <metrics statements="42" coveredstatements="38" conditionals="11" coveredconditionals="11" methods="16" coveredmethods="13" elements="69" coveredelements="62" complexity="0" loc="42" ncloc="42" packages="1" files="1" classes="1"/>
+    <file name="duplicateRemover.js" path="/home/peter/projects/csv-filter/lib/duplicateRemover.js">
+      <metrics statements="42" coveredstatements="38" conditionals="11" coveredconditionals="11" methods="16" coveredmethods="13"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="9" count="1" type="stmt"/>
+      <line num="12" count="16" type="stmt"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="19" count="4" type="stmt"/>
+      <line num="23" count="1" type="stmt"/>
+      <line num="24" count="1" type="stmt"/>
+      <line num="25" count="1" type="stmt"/>
+      <line num="26" count="1" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="29" count="4" type="stmt"/>
+      <line num="30" count="4" type="stmt"/>
+      <line num="31" count="16" type="stmt"/>
+      <line num="33" count="4" type="stmt"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="44" count="4" type="stmt"/>
+      <line num="45" count="4" type="stmt"/>
+      <line num="46" count="4" type="stmt"/>
+      <line num="47" count="15" type="stmt"/>
+      <line num="48" count="15" type="stmt"/>
+      <line num="49" count="60" type="cond" truecount="2" falsecount="0"/>
+      <line num="50" count="16" type="stmt"/>
+      <line num="52" count="60" type="cond" truecount="4" falsecount="0"/>
+      <line num="53" count="4" type="stmt"/>
+      <line num="55" count="60" type="stmt"/>
+      <line num="57" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="58" count="11" type="stmt"/>
+      <line num="62" count="4" type="stmt"/>
+      <line num="68" count="3" type="cond" truecount="3" falsecount="0"/>
+      <line num="70" count="1" type="stmt"/>
+      <line num="71" count="1" type="stmt"/>
+      <line num="73" count="1" type="stmt"/>
+      <line num="74" count="1" type="stmt"/>
+      <line num="76" count="1" type="stmt"/>
+      <line num="77" count="1" type="stmt"/>
+      <line num="80" count="3" type="stmt"/>
+      <line num="84" count="0" type="stmt"/>
+      <line num="86" count="0" type="stmt"/>
+      <line num="87" count="0" type="stmt"/>
+      <line num="89" count="0" type="stmt"/>
+      <line num="92" count="1" type="stmt"/>
+    </file>
+  </project>
+</coverage>

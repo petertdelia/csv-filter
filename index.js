@@ -1,9 +1,8 @@
-const duplicateFilter = require("./lib/duplicateFilter");
+const { orchestrator } = require("./lib/duplicateRemover");
+const defaults = require("./constants.js");
 
-const defaultPath = "example.csv";
-const defaultStrategy = "email";
+const pathToRead = process.argv[2] || defaults.pathToRead;
+const strategy = process.argv[3] || defaults.strategy;
+const pathToWrite = process.argv[4] || defaults.pathToWrite;
 
-const path = process.argv[2] || defaultPath;
-const strategy = process.argv[3] || defaultStrategy;
-
-console.log(duplicateFilter(path, strategy));
+orchestrator(pathToRead, strategy, pathToWrite);
