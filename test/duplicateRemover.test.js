@@ -3,7 +3,7 @@ const {
   convertCSVToArray, 
   validateFile, 
   validateEntries,
-  convertArrayToCSV 
+  convertArrayToCSV,
 } = require("../lib/duplicateRemover");
 const fs = require("fs");
 
@@ -279,8 +279,9 @@ describe("A CSV file with missing or wrong headers", () => {
 describe("A CSV file that contains entries with the wrong number of columns", () => {
   test("throws an appropriate error", () => {
     inputPath = "./test/csv-test-files/test-missing-columns-input.csv";
+    entries = convertCSVToArray(inputPath);
     expect(() => {
-      convertCSVToArray(inputPath);
+      validateEntries(entries);
     }).toThrowError("File must contain the correct number of columns in each entry");
   });
 });
