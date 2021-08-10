@@ -1,13 +1,21 @@
-const { removeDuplicates, convertCSVToArray } = require("../lib/duplicateRemover");
-let filePath, detectionStrategy, entries, expectedResult;
+const { 
+  removeDuplicates, 
+  convertCSVToArray, 
+  validateFile, 
+  validateEntries,
+  convertArrayToCSV 
+} = require("../lib/duplicateRemover");
+const fs = require("fs");
+
+let inputPath, detectionStrategy, entries, expectedResult;
 
 describe("A CSV file with all values present", () => {
   beforeEach(() => {
-    filePath = "./test/test-all-values.csv";
-    entries = convertCSVToArray(filePath);
+    inputPath = "./test/csv-test-files/test-all-values-input.csv";
+    entries = convertCSVToArray(inputPath);
   });
 
-  xtest("is successfully converted to an array of objects", () => {
+  test("is successfully converted to an array of objects", () => {
     expectedResult = [
       {
         FirstName: 'John',
@@ -35,10 +43,10 @@ describe("A CSV file with all values present", () => {
       }
     ];
 
-    expect(convertCSVToArray(filePath)).toEqual(expectedResult);
+    expect(convertCSVToArray(inputPath)).toEqual(expectedResult);
   });
 
-  xtest("has duplicates removed by email address", () => {
+  test("has duplicates removed by email address", () => {
     detectionStrategy = "email";
     expectedResult = [
       {
@@ -64,7 +72,7 @@ describe("A CSV file with all values present", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  xtest("has duplicates removed by phone number", () => {
+  test("has duplicates removed by phone number", () => {
     detectionStrategy = "phone";
     expectedResult = [
       {
@@ -90,7 +98,7 @@ describe("A CSV file with all values present", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  xtest("has duplicates removed by email address and phone number", () => {
+  test("has duplicates removed by email address and phone number", () => {
     detectionStrategy = "email_or_phone";
     expectedResult = [
       {
@@ -114,11 +122,11 @@ describe("A CSV file with all values present", () => {
 describe("A CSV file with some values missing", () => {
 
   beforeEach(() => {
-    filePath = "./test/test-missing-values.csv";
-    entries = convertCSVToArray(filePath);
+    inputPath = "./test/csv-test-files/test-missing-values-input.csv";
+    entries = convertCSVToArray(inputPath);
   });
 
-  xtest("is successfully converted to an array of objects", () => {
+  test("is successfully converted to an array of objects", () => {
     expectedResult = [
       {
         FirstName: 'John',
@@ -148,7 +156,7 @@ describe("A CSV file with some values missing", () => {
     
   });
 
-  test("removes duplicates by email address", () => {
+  test("has duplicates removed by email address", () => {
     detectionStrategy = "email";
     expectedResult = [
       {
@@ -174,31 +182,114 @@ describe("A CSV file with some values missing", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  xtest("removes duplicates by phone number", () => {
+  test("has duplicates removed by phone number", () => {
     detectionStrategy = "phone";
-    expect(removeDuplicates()).toEqual("4");
+    expectedResult = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: ''
+      },
+      {
+        FirstName: 'Jane',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '456-789-9012'
+      }
+    ];
+
+    expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  xtest("removes duplicates by email address and phone number", () => {
+  test("has duplicates removed by email address and phone number", () => {
     detectionStrategy = "email_or_phone";
-    expect(removeDuplicates()).toEqual("4");
+    expectedResult = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: ''
+      }
+    ];
+
+    expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 });
 
-describe("A CSV file without headers", () => {
-  xtest("throws an appropriate error", () => {
-    expect(removeDuplicates()).toBe("4");
+describe("An array of objects", () => {
+  test("is successfully written to a csv file", () => {
+    inputPath = "./test/csv-test-files/test-all-values-input.csv";
+    let pathToWrite = "./test/csv-test-files/test.csv";
+    expectedResult = fs.readFileSync(inputPath, {encoding: "utf-8"});
+    entries = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Peter',
+        LastName: 'Delia',
+        Email: 'pdelia@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: '098-765-4321'
+      },
+      {
+        FirstName: 'Jane',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '456-789-9012'
+      }
+    ];
+
+    convertArrayToCSV(entries, pathToWrite);
+
+    expect(fs.readFileSync(pathToWrite, {encoding: "utf-8"})).toEqual(expectedResult);
   });
-})
+});
+
+describe("A CSV file with missing or wrong headers", () => {
+  test("throws an appropriate error", () => {
+    inputPath = "./test/csv-test-files/test-missing-headers-input.csv";
+    expect(() => {
+      validateFile(inputPath);
+    }).toThrowError("File must contain headers [FirstName, LastName, Email, Phone]");
+  });
+});
+
+describe("A CSV file that contains entries with the wrong number of columns", () => {
+  test("throws an appropriate error", () => {
+    inputPath = "./test/csv-test-files/test-missing-columns-input.csv";
+    expect(() => {
+      convertCSVToArray(inputPath);
+    }).toThrowError("File must contain the correct number of columns in each entry");
+  });
+});
 
 describe("An invalid file path", () => {
-  xtest("throws an error", () => {
-
+  test("throws an error", () => {
+    inputPath = "./test/csv-test-files/no-such-file";
+    expect(() => {
+      validateFile(inputPath);
+    }).toThrow();
   })
-})
-
-describe("An invalid file type", () => {
-  xtest("throws an error", () => {
-
-  })
-})
+});
