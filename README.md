@@ -1,14 +1,14 @@
-# duplicate-filter
+# duplicate-remover
 
 ## Description
-- duplicate-filter is a command line utility that takes a csv file and a duplicate filtering strategy, and writes a new csv file with duplicates removed according to the specified strategy.
+- duplicate-remover is a command line utility that takes a csv file and a duplicate removal strategy, and writes a new csv file with duplicates removed according to the specified strategy.
 
 ## Installation
-- run `git clone https://github.com/petertdelia/duplicate-filter.git` and `cd duplicate-filter`
+- run `git clone https://github.com/petertdelia/duplicate-remover.git` and `cd duplicate-remover`
 - run `npm install`
 
 ## Usage
-- from the root project directory, run `npm run duplicate-filter [path/to/csv/file] [removal strategy] [path/to/output]`
+- from the root project directory, run `npm run duplicate-remover [path/to/csv/file] [removal strategy] [path/to/output]`
 - `path/to/csv/file` is relative to the root project directory, defaults to `example.csv`
 - `removal strategy` is one of: `email`, `phone`, `email_or_phone`, defaults to `email`
 - `path/to/output` defaults to `output.csv` in the root project directory
