@@ -1,11 +1,44 @@
 const { removeDuplicates, convertCSVToArray } = require("../lib/duplicateRemover");
-let filePath, detectionStrategy, expectedResult;
+let filePath, detectionStrategy, entries, expectedResult;
 
 describe("A CSV file with all values present", () => {
-  filePath = "./test/test-all-values.csv";
-  let entries = convertCSVToArray(filePath)
+  beforeEach(() => {
+    filePath = "./test/test-all-values.csv";
+    entries = convertCSVToArray(filePath);
+  });
 
-  test("removes duplicates by email address", () => {
+  xtest("is successfully converted to an array of objects", () => {
+    expectedResult = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Peter',
+        LastName: 'Delia',
+        Email: 'pdelia@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: '098-765-4321'
+      },
+      {
+        FirstName: 'Jane',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '456-789-9012'
+      }
+    ];
+
+    expect(convertCSVToArray(filePath)).toEqual(expectedResult);
+  });
+
+  xtest("has duplicates removed by email address", () => {
     detectionStrategy = "email";
     expectedResult = [
       {
@@ -31,7 +64,7 @@ describe("A CSV file with all values present", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  test("removes duplicates by phone number", () => {
+  xtest("has duplicates removed by phone number", () => {
     detectionStrategy = "phone";
     expectedResult = [
       {
@@ -57,7 +90,7 @@ describe("A CSV file with all values present", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  test("removes duplicates by email address and phone number", () => {
+  xtest("has duplicates removed by email address and phone number", () => {
     detectionStrategy = "email_or_phone";
     expectedResult = [
       {
@@ -79,17 +112,75 @@ describe("A CSV file with all values present", () => {
 })
 
 describe("A CSV file with some values missing", () => {
-  filePath = "./test/test-missing-values.csv";
 
-  xtest("removes duplicates by email address", () => {
-    expect(removeDuplicates(entries, detectionStrategy)).toEqual("4");
+  beforeEach(() => {
+    filePath = "./test/test-missing-values.csv";
+    entries = convertCSVToArray(filePath);
+  });
+
+  xtest("is successfully converted to an array of objects", () => {
+    expectedResult = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Peter',
+        LastName: 'Delia',
+        Email: '',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: ''
+      },
+      {
+        FirstName: 'Jane',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '456-789-9012'
+      }
+    ];
+    
+  });
+
+  test("removes duplicates by email address", () => {
+    detectionStrategy = "email";
+    expectedResult = [
+      {
+        FirstName: 'John',
+        LastName: 'Doe',
+        Email: 'jdoe@gmail.com',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Peter',
+        LastName: 'Delia',
+        Email: '',
+        Phone: '123-456-7890'
+      },
+      {
+        FirstName: 'Joe',
+        LastName: 'Hood',
+        Email: 'jhood@gmail.com',
+        Phone: ''
+      }
+    ];
+
+    expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
   xtest("removes duplicates by phone number", () => {
+    detectionStrategy = "phone";
     expect(removeDuplicates()).toEqual("4");
   });
 
   xtest("removes duplicates by email address and phone number", () => {
+    detectionStrategy = "email_or_phone";
     expect(removeDuplicates()).toEqual("4");
   });
 });
