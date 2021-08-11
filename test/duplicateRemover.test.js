@@ -4,6 +4,7 @@ const {
   validateFile, 
   validateEntries,
   convertArrayToCSV,
+  orchestrator,
 } = require("../lib/duplicateRemover");
 const fs = require("fs");
 
@@ -117,6 +118,17 @@ describe("A CSV file with all values present", () => {
     
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
+
+  test("removes email duplicates end-to-end", () => {
+    detectionStrategy = "email";
+    inputPath = "./test/csv-test-files/test-all-values-input.csv";
+    let expectedPath = "./test/csv-test-files/test-all-values-expected.csv";
+    let pathToWrite = "./test/csv-test-files/test.csv";
+    expectedResult = fs.readFileSync(expectedPath, {encoding: "utf-8"});
+    orchestrator(inputPath, detectionStrategy, pathToWrite)
+
+    expect(fs.readFileSync(pathToWrite, {encoding: "utf-8"})).toEqual(expectedResult);
+  });
 })
 
 describe("A CSV file with some values missing", () => {
@@ -226,6 +238,17 @@ describe("A CSV file with some values missing", () => {
     ];
 
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
+  });
+
+  test("removes email duplicates end-to-end", () => {
+    detectionStrategy = "email";
+    inputPath = "./test/csv-test-files/test-missing-values-input.csv";
+    let expectedPath = "./test/csv-test-files/test-missing-values-expected.csv";
+    let pathToWrite = "./test/csv-test-files/test.csv";
+    expectedResult = fs.readFileSync(expectedPath, {encoding: "utf-8"});
+    orchestrator(inputPath, detectionStrategy, pathToWrite);
+
+    expect(fs.readFileSync(pathToWrite, {encoding: "utf-8"})).toEqual(expectedResult);
   });
 });
 

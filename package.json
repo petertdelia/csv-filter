@@ -23,5 +23,10 @@
   "homepage": "https://github.com/petertdelia/duplicate-remover#readme",
   "dependencies": {
     "jest": "^27.0.6"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.15.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0"
   }
 }
