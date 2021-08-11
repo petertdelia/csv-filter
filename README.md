@@ -22,8 +22,6 @@
 ## Design considerations
 - used functional programming rather than class-based design, for simplicity
 
-
 ## Future work
 - extract expected results from tests to de-clutter
 - handle special characters in csv files (`,` `\n`)
-- test orchestrator function
