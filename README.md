@@ -16,7 +16,7 @@
 - the input csv file must contain the headers `[ FirstName, LastName, Email, Phone ]`
 
 ## Testing
-- from the root project directory, run `npm run test` to run all tests. This command outputs code coverage as well
+- from the root project directory, run `npm test` to run all tests. This command outputs code coverage as well
 - tests are kept in the `tests` directory
 
 ## Design considerations
@@ -25,3 +25,4 @@
 ## Future work
 - extract expected results from tests to de-clutter
 - handle special characters in csv files (`,` `\n`)
+- handle country codes in phone numbers

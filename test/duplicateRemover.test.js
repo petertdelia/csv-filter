@@ -28,7 +28,7 @@ describe("A CSV file with all values present", () => {
         FirstName: 'Peter',
         LastName: 'Delia',
         Email: 'pdelia@gmail.com',
-        Phone: '123-456-7890'
+        Phone: '123.456.7890'
       },
       {
         FirstName: 'Joe',
@@ -39,7 +39,7 @@ describe("A CSV file with all values present", () => {
       {
         FirstName: 'Jane',
         LastName: 'Doe',
-        Email: 'jdoe@gmail.com',
+        Email: 'Jdoe@gmail.com',
         Phone: '456-789-9012'
       }
     ];
@@ -47,7 +47,7 @@ describe("A CSV file with all values present", () => {
     expect(convertCSVToArray(inputPath)).toEqual(expectedResult);
   });
 
-  test("has duplicates removed by email address", () => {
+  test("has duplicates removed by email address, handles upper- and lower-case differences", () => {
     detectionStrategy = "email";
     expectedResult = [
       {
@@ -60,7 +60,7 @@ describe("A CSV file with all values present", () => {
         FirstName: 'Peter',
         LastName: 'Delia',
         Email: 'pdelia@gmail.com',
-        Phone: '123-456-7890'
+        Phone: '123.456.7890'
       },
       {
         FirstName: 'Joe',
@@ -73,7 +73,7 @@ describe("A CSV file with all values present", () => {
     expect(removeDuplicates(entries, detectionStrategy)).toEqual(expectedResult);
   });
 
-  test("has duplicates removed by phone number", () => {
+  test("has duplicates removed by phone number, handles different non-numeric chars", () => {
     detectionStrategy = "phone";
     expectedResult = [
       {
@@ -91,7 +91,7 @@ describe("A CSV file with all values present", () => {
       {
         FirstName: 'Jane',
         LastName: 'Doe',
-        Email: 'jdoe@gmail.com',
+        Email: 'Jdoe@gmail.com',
         Phone: '456-789-9012'
       }
     ];
@@ -268,7 +268,7 @@ describe("An array of objects", () => {
         FirstName: 'Peter',
         LastName: 'Delia',
         Email: 'pdelia@gmail.com',
-        Phone: '123-456-7890'
+        Phone: '123.456.7890'
       },
       {
         FirstName: 'Joe',
@@ -279,7 +279,7 @@ describe("An array of objects", () => {
       {
         FirstName: 'Jane',
         LastName: 'Doe',
-        Email: 'jdoe@gmail.com',
+        Email: 'Jdoe@gmail.com',
         Phone: '456-789-9012'
       }
     ];
